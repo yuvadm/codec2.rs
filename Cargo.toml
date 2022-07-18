@@ -1,5 +1,6 @@
 [workspace]
 
 members = [
+    "libcodec2",
     "codec2-sys",
 ]

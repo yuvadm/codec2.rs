@@ -1,4 +1,4 @@
-# codec2-sys
+# codec2.rs
 
 Rust system bindings for the [codec2](https://github.com/drowe67/codec2) library.
 
