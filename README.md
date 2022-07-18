@@ -2,20 +2,24 @@
 
 Rust system bindings for the [codec2](https://github.com/drowe67/codec2) library.
 
-Automagically generated via [bindgen](https://github.com/rust-lang/rust-bindgen).
+Provides the following packages:
+  - `libcodec2`: ergonomic high-level bindings
+  - `codec2-sys`: low-level unsafe bindings, automagically generated via [bindgen](https://github.com/rust-lang/rust-bindgen).
+
+Unrelated to the [`codec2`](https://github.com/scriptjunkie/codec2) crate which is a partial pure-rust implementation.
 
 ## Usage
 
 Install with `cargo add`:
 
 ```bash
-$ cargo add codec2-sys
+$ cargo add libcodec2
 ```
 
 Or add manually to your `Cargo.toml`:
 
 ```
-codec2-sys = "1.0.0"
+libcodec2 = "1.0.0"
 ```
 
 ## License
