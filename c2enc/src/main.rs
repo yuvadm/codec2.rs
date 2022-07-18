@@ -12,8 +12,16 @@ fn main() {
     let mut file = File::open(&path).unwrap();
     let mut buf = Vec::new();
     file.read_to_end(&mut buf).unwrap();
+
     let mut rdr = Cursor::new(buf);
-    while let Ok(res) = rdr.read_i16::<LittleEndian>() {
-        println!("{}", res);
+    let mut speech = Vec::new();
+    while let Ok(i) = rdr.read_i16::<LittleEndian>() {
+        speech.push(i);
     }
+
+    let mut bits = Vec::new();
+    let c = libcodec2::Codec2::new();
+    c.encode(&speech, &mut bits);
+
+    println!("{:?}", bits);
 }

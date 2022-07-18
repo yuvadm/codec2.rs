@@ -21,7 +21,7 @@ impl Codec2 {
     }
 
     /// Encode an array of speech samples into an array of bits
-    pub fn encode(self, speech: &[i16], bits: &[u8]) {
+    pub fn encode(self, speech: &[i16], bits: &mut [u8]) {
         unsafe {
             ffi::codec2_encode(self.0, bits.as_ptr() as *mut _, speech.as_ptr() as *mut _);
         }
