@@ -19,9 +19,17 @@ fn main() {
         speech.push(i);
     }
 
-    let mut bits = Vec::new();
+    let mut allbits = Vec::new();
     let c = libcodec2::Codec2::new();
-    c.encode(&speech, &mut bits);
+    let nsam = c.samples_per_frame();
+    let nbits = c.bytes_per_frame();
+    
+    for speech in speech.chunks(nsam) {
+        let mut bits = Vec::new();
+        bits.reserve(nbits);
+        c.encode(&speech, &mut bits);
+        allbits.push(bits);
+    }
 
-    println!("{:?}", bits);
+    println!("{:?}", allbits);
 }

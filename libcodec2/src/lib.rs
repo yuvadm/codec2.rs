@@ -20,8 +20,16 @@ impl Codec2 {
         unsafe { ffi::codec2_destroy(self.0) }
     }
 
+    pub fn samples_per_frame(&self) -> usize {
+        unsafe { ffi::codec2_samples_per_frame(self.0).try_into().unwrap() }
+    }
+
+    pub fn bytes_per_frame(&self) -> usize {
+        unsafe { ffi::codec2_bytes_per_frame(self.0).try_into().unwrap() }
+    }
+
     /// Encode an array of speech samples into an array of bits
-    pub fn encode(self, speech: &[i16], bits: &mut [u8]) {
+    pub fn encode(&self, speech: &[i16], bits: &mut [u8]) {
         unsafe {
             ffi::codec2_encode(self.0, bits.as_ptr() as *mut _, speech.as_ptr() as *mut _);
         }
