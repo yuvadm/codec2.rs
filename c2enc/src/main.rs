@@ -30,5 +30,6 @@ fn main() {
         allbits.extend(bits);
     }
 
-    println!("{:?}", allbits);
+    let mut file = File::create("out.c2").unwrap();
+    file.write_all(&allbits).unwrap();
 }
