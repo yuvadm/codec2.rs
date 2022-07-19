@@ -22,13 +22,12 @@ fn main() {
     let mut allbits = Vec::new();
     let c = libcodec2::Codec2::new();
     let nsam = c.samples_per_frame();
-    let nbits = c.bytes_per_frame();
-    
+    let _nbits = c.bytes_per_frame();
+
     for speech in speech.chunks(nsam) {
-        let mut bits = Vec::new();
-        bits.reserve(nbits);
+        let mut bits: [u8; 7] = [0,0,0,0,0,0,0]; // nbits assume 7
         c.encode(&speech, &mut bits);
-        allbits.push(bits);
+        allbits.extend(bits);
     }
 
     println!("{:?}", allbits);
