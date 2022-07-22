@@ -24,9 +24,9 @@ fn main() {
     let nsam = c.samples_per_frame();
     let _nbits = c.bytes_per_frame();
 
-    for speech in speech.chunks(nsam) {
-        let mut bits: [u8; 7] = [0,0,0,0,0,0,0]; // nbits assume 7
-        c.encode(&speech, &mut bits);
+    for samples in speech.chunks(nsam) {
+        let mut bits: [u8; 7] = [0, 0, 0, 0, 0, 0, 0]; // nbits assume 7
+        c.encode(&samples, &mut bits);
         allbits.extend(bits);
     }
 
