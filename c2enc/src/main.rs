@@ -7,9 +7,22 @@ use std::io::prelude::*;
 use std::io::Cursor;
 use std::path::Path;
 
+struct Cli {
+    in_path: std::path::PathBuf,
+    out_path: std::path::PathBuf,
+}
+
 fn main() {
-    let path = Path::new("../../codec2/wav/cross.wav");
-    let mut file = File::open(&path).unwrap();
+    let in_path_arg = std::env::args().nth(1).expect("no input path given");
+    let out_path_arg = std::env::args().nth(2).expect("no output path given");
+
+    let args = Cli {
+        in_path: std::path::PathBuf::from(in_path_arg),
+        out_path: std::path::PathBuf::from(out_path_arg),
+    };
+
+    let in_path = Path::new(&args.in_path);
+    let mut file = File::open(&in_path).unwrap();
     let mut buf = Vec::new();
     file.read_to_end(&mut buf).unwrap();
 
@@ -30,6 +43,6 @@ fn main() {
         allbits.extend(bits);
     }
 
-    let mut file = File::create("out.c2").unwrap();
+    let mut file = File::create(&args.out_path).unwrap();
     file.write_all(&allbits).unwrap();
 }
