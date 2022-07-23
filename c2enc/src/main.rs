@@ -32,17 +32,16 @@ fn main() {
         speech.push(i);
     }
 
-    let mut allbits = Vec::new();
     let c = libcodec2::Codec2::new();
     let nsam = c.samples_per_frame();
     let nbits = c.bytes_per_frame();
 
+    let mut file = File::create(&args.out_path).unwrap();
+
     for samples in speech.chunks(nsam) {
         let mut bits = vec![0u8; nbits];
         c.encode(&samples, &mut bits);
-        allbits.extend(bits);
+        file.write(&bits).unwrap();
     }
-
-    let mut file = File::create(&args.out_path).unwrap();
-    file.write_all(&allbits).unwrap();
+    file.flush().unwrap();
 }
