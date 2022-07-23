@@ -35,10 +35,10 @@ fn main() {
     let mut allbits = Vec::new();
     let c = libcodec2::Codec2::new();
     let nsam = c.samples_per_frame();
-    let _nbits = c.bytes_per_frame();
+    let nbits = c.bytes_per_frame();
 
     for samples in speech.chunks(nsam) {
-        let mut bits: [u8; 7] = [0, 0, 0, 0, 0, 0, 0]; // nbits assume 7
+        let mut bits = vec![0u8; nbits];
         c.encode(&samples, &mut bits);
         allbits.extend(bits);
     }
