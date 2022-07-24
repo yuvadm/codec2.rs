@@ -30,6 +30,14 @@ impl Codec2 {
 
     /// Encode an array of speech samples into an array of bits
     pub fn encode(&self, speech: &[i16], bits: &mut [u8]) {
+        let nsamples = self.samples_per_frame();
+        let nbits = self.bytes_per_frame();
+        if bits.len() != nsamples {
+            panic!("Samples buffer must be of length {}", nsamples);
+        }
+        if speech.len() != nbits {
+            panic!("Speech buffer must be of length {}", nsamples);
+        }
         unsafe {
             ffi::codec2_encode(self.0, bits.as_ptr() as *mut _, speech.as_ptr() as *mut _);
         }
