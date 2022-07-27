@@ -38,7 +38,8 @@ fn main() {
 
     let mut file = File::create(&args.out_path).unwrap();
 
-    for samples in speech.chunks(nsam) {
+    for samples in speech.chunks_exact(nsam) {
+        // remainder frame will be dropped
         let mut bits = vec![0u8; nbits];
         c.encode(&samples, &mut bits);
         file.write(&bits).unwrap();
