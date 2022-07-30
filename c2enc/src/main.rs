@@ -7,6 +7,8 @@ use std::io::prelude::*;
 use std::io::Cursor;
 use std::path::Path;
 
+use libcodec2::{Codec2, Modes};
+
 struct Cli {
     in_path: std::path::PathBuf,
     out_path: std::path::PathBuf,
@@ -32,7 +34,7 @@ fn main() {
         speech.push(i);
     }
 
-    let c = libcodec2::Codec2::new();
+    let c = Codec2::new(Modes::Mode1400);
     let nsam = c.samples_per_frame();
     let nbits = c.bytes_per_frame();
 

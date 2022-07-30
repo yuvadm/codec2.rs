@@ -1,15 +1,21 @@
 extern crate codec2_sys as ffi;
 
 pub enum Modes {
+    Mode3200 = ffi::CODEC2_MODE_3200 as isize,
+    Mode2400 = ffi::CODEC2_MODE_2400 as isize,
+    Mode1600 = ffi::CODEC2_MODE_1600 as isize,
     Mode1400 = ffi::CODEC2_MODE_1400 as isize,
+    Mode1300 = ffi::CODEC2_MODE_1300 as isize,
+    Mode1200 = ffi::CODEC2_MODE_1200 as isize,
+    Mode700C = ffi::CODEC2_MODE_700C as isize,
+    Mode450 = ffi::CODEC2_MODE_450 as isize,
 }
 
 pub struct Codec2(*mut ffi::CODEC2);
 
 impl Codec2 {
-    pub fn new() -> Self {
-        let mode = ffi::CODEC2_MODE_1400.try_into().unwrap();
-        let c = unsafe { ffi::codec2_create(mode) };
+    pub fn new(mode: Modes) -> Self {
+        let c = unsafe { ffi::codec2_create(mode as i32) };
         if c.is_null() {
             panic!("error")
         }
