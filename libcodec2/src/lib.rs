@@ -66,10 +66,10 @@ impl Drop for Codec2 {
 
 #[cfg(test)]
 mod tests {
-    use super::Codec2;
+    use super::{Codec2, Modes};
     #[test]
     fn it_works() {
-        let _c = Codec2::new();
+        let _c = Codec2::new(Modes::Mode1400);
         let result = 2 + 2;
         assert_eq!(result, 4);
     }
