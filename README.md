@@ -1,6 +1,6 @@
 # codec2.rs
 
-Rust system bindings for the [codec2](https://github.com/drowe67/codec2) library.
+Rust bindings for the [codec2](https://github.com/drowe67/codec2) library.
 
 Provides the following packages:
   - [`libcodec2`](libcodec2): safe and ergonomic wrappers around the core libcodec2 function calls
