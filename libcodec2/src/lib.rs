@@ -1,5 +1,7 @@
 extern crate codec2_sys as ffi;
 
+use std::str;
+
 pub enum Modes {
     Mode3200 = ffi::CODEC2_MODE_3200 as isize,
     Mode2400 = ffi::CODEC2_MODE_2400 as isize,
@@ -20,6 +22,13 @@ impl Codec2 {
             panic!("error")
         }
         Codec2(c)
+    }
+
+    pub fn version(&self) -> &str {
+        str::from_utf8(ffi::CODEC2_VERSION)
+            .unwrap()
+            .strip_suffix('\0')
+            .unwrap()
     }
 
     pub fn destroy(&self) {
@@ -72,5 +81,6 @@ mod tests {
         let c = Codec2::new(Modes::Mode1400);
         assert_eq!(c.bytes_per_frame(), 7);
         assert_eq!(c.samples_per_frame(), 320);
+        assert_eq!(c.version(), "1.0.3");
     }
 }
