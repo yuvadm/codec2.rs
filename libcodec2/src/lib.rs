@@ -68,9 +68,9 @@ impl Drop for Codec2 {
 mod tests {
     use super::{Codec2, Modes};
     #[test]
-    fn it_works() {
-        let _c = Codec2::new(Modes::Mode1400);
-        let result = 2 + 2;
-        assert_eq!(result, 4);
+    fn test_codec2() {
+        let c = Codec2::new(Modes::Mode1400);
+        assert_eq!(c.bytes_per_frame(), 7);
+        assert_eq!(c.samples_per_frame(), 320);
     }
 }
